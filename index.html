@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Invoice</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="wrapper" style="display: flex; margin: 20px; padding: 20px">
+      <div class="row my-2" style="padding: 20px">
+        <div
+          class="customerAddSection"
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e0e0e0;
+            height: 20%;
+            border-radius: 20px;
+          "
+        >
+          <h1 style="padding: 10px">Add Customer</h1>
+          <button
+            style="
+              height: 100%;
+              width: 60px;
+              border-bottom-right-radius: 20px;
+              border-top-right-radius: 20px;
+              font-size: 36px;
+            "
+            type="button"
+            class="btn btn-danger ml-2"
+            data-toggle="modal"
+            data-target="#myModal"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="modal"
+        id="myModal"
+        data-backdrop="static"
+        data-keyboard="false"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Customers</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <input
+                  type="number"
+                  class="form-control mb-2"
+                  id="customerID"
+                  placeholder="Enter Unique Customer ID "
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control mb-2"
+                  id="customerName"
+                  placeholder="Customer Name"
+                />
+              </div>
+              <div class="form-group">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">%</div>
+                  </div>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="discount"
+                    placeholder="Discount"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">
+                Close
+              </button>
+              <button
+                type="submit"
+                class="btn btn-success"
+                data-dismiss="modal"
+                id="addCustomer-btn"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-2 text-center">
+        <div class="col-md-8">
+          <div class="col p-3 table-responsive" id="invoiceTable"></div>
+        </div>
+
+        <div class="col-md-4">
+          <div
+            class="row border p-2"
+            style="
+              background-color: #e0e0e0;
+              border-radius: 20px;
+              padding: 10px;
+            "
+          >
+            <h3 class="w-auto" style="padding: 10px">Customer Wallet</h3>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <select class="form-control mr-sm-2" id="walletCustomerList">
+                  <option selected>Select...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">Rs</div>
+                  </div>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="walletAmount"
+                    placeholder="Amount"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="generateInvoice"
+                  />
+                  <label class="form-check-label" for="autoSizingCheck">
+                    Generate Invoice
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 justify-content-center">
+              <div class="form-group">
+                <button type="submit" class="btn btn-success" id="deposit">
+                  Deposit
+                </button>
+                <button type="submit" class="btn btn-danger" id="withdraw">
+                  Withdraw
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="row border p-2"
+            style="
+              background-color: #e0e0e0;
+              margin-top: 20px;
+              border-radius: 20px;
+              padding: 10px;
+            "
+          >
+            <h3 class="w-auto" style="padding: 10px">Customer Purchase</h3>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <select class="form-control mr-sm-2" id="purchaseCustomerList">
+                  <option selected>Select...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">Rs</div>
+                  </div>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="purchaseAmount"
+                    placeholder="Amount"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  id="displayModal-btn"
+                  data-toggle="modal"
+                  data-target="#verification"
+                >
+                  Buy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="verification"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Amount after Discount</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="purchaseConfirm">Enter valid data</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              id="purchase-btn"
+              id="purchaseButton"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
